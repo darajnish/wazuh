@@ -1,5 +1,5 @@
 #! /bin/bash
-set -x
+set -ex
 
 BRANCH=""
 JOBS="4"
@@ -120,6 +120,10 @@ main() {
             help 1
         esac
     done
+
+    if [ -z "${ZIP_NAME}" ]; then
+        help |grep -B5 --color "^.*--output.*$" & exit 1
+    fi
 
     if [ ! -d "${OUTDIR}" ]; then
         echo "Creating building directory at ${OUTDIR}"

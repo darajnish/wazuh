@@ -61,6 +61,7 @@ build_package(){
     else
         linux32 debuild --rootcmd=sudo -ai386 -b -uc -us -nc
     fi
+    return $?
 }
 
 get_package_and_checksum(){
