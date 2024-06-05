@@ -99,8 +99,12 @@ build_pkg() {
         ${REVISION} ${JOBS} ${DEBUG} \
         ${CHECKSUM} ${FUTURE} ${LEGACY} ${SRC}|| return 1
 
-    echo "Packages $(ls -Art ${OUTDIR} | tail -n 2) added to ${OUTDIR}."
-
+    #echo "Packages $(ls -Art ${OUTDIR} | tail -n 2) added to ${OUTDIR}."
+    echo "**********************************************************"
+    echo "Packages generated:"
+    find ${OUTDIR} -type f -name "*(-dbg|-debuginfo|.deb|.rpm|.zip)"
+    echo "**********************************************************"
+    
     return 0
 }
 
