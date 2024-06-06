@@ -99,10 +99,8 @@ build_pkg() {
         ${REVISION} ${JOBS} ${DEBUG} \
         ${CHECKSUM} ${FUTURE} ${LEGACY} ${SRC}|| return 1
 
-    echo "**********************************************************"
-    echo "Listing of output directory: ${OUTDIR}."
-    ls -Art ${OUTDIR}
-    echo "**************** End generate_package.sh ******************"
+
+    echo "**************** End build_pkg() ******************"
 
     return 0
 }
