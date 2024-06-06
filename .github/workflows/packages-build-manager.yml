@@ -128,7 +128,8 @@ jobs:
           # Every call to this workflow will be internally managed as amd64, which is synonymous with x86_64
           echo "generate_package.sh -a amd64 --tag ${{ env.TAG }} --system ${{ inputs.system }} $FLAGS"
           bash generate_package.sh -a amd64 --tag ${{ env.TAG }} --system ${{ inputs.system }} $FLAGS
-          echo "PACKAGE_NAME=$(find /tmp -maxdepth 1 -type f -name *manager*.${{ inputs.system }} -exec basename {} 2>/dev/null \;)" | tee -a $GITHUB_ENV
+          echo "PACKAGE_NAME=$(find /tmp -maxdepth 1 -type f -name *manager_*.${{ inputs.system }} -exec basename {} 2>/dev/null \;)" | tee -a $GITHUB_ENV
+          echo "PACKAGE_SYMBOLS_NAME=$(find /tmp -maxdepth 1 -type f -name *manager-*.${{ inputs.system }} -exec basename {} 2>/dev/null \;)" | tee -a $GITHUB_ENV
 
       - name: Test install built manager
         run: |
@@ -165,19 +166,7 @@ jobs:
 
       - name: Upload debug symbols to S3
         run: |
-          if [ "${{ inputs.system }}" == "deb" ]; then 
-            NAMETOKEN="manager-dbg"
-          else
-            NAMETOKEN="manager-debuginfo"
-          fi
-
-          symbols_name=$(find /tmp -type f -name *${NAMETOKEN}*.${inputs.system})
-
-          #symbols_name=$(ls /tmp | grep ${NAMETOKEN})
-          
-          echo "S3 symbols name: " ${symbols_name}
-          aws s3 cp /tmp/${symbols_name} s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/main/packages/
-
+          aws s3 cp /tmp/${{ env.PACKAGE_SYMBOLS_NAME }} s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/main/packages/
           symbols="s3://packages-dev.internal.wazuh.com/development/wazuh/4.x/main/packages/${symbols_name}"
           echo "S3 symbols URI: ${symbols}"
 
