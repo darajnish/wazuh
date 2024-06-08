@@ -12,7 +12,6 @@
 
 
 setup_build(){
-    echo "setup_build(sources_dir: $1, specs: $2, build: $3, package: $4, debug: $5)"
     sources_dir="$1"
     specs_path="$2"
     build_dir="$3"
@@ -33,13 +32,9 @@ setup_build(){
     sed -i "s#export LD_LIBRARY_PATH=.*#export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}#g" ${sources_dir}/debian/rules
     sed -i "s:export INSTALLATION_DIR=.*:export INSTALLATION_DIR=${INSTALLATION_PATH}:g" ${sources_dir}/debian/rules
     sed -i "s:DIR=\"/var/ossec\":DIR=\"${INSTALLATION_PATH}\":g" ${sources_dir}/debian/{preinst,postinst,prerm,postrm}
-
-    echo "Listing of ${sources_dir}/debian/rules"
-    cat ${sources_dir}/debian/rules
 }
 
 set_debug(){
-    echo "set_debug(debug: $1, sources_dir: $2)"
     local debug="$1"
     local sources_dir="$2"
     if [[ "${debug}" == "yes" ]]; then
@@ -65,8 +60,6 @@ build_package(){
 }
 
 get_package_and_checksum(){
-    echo "get_package_and_checksum()"
-
     wazuh_version="$1"
     short_commit_hash="$2"
     base_name="wazuh-${BUILD_TARGET}_${wazuh_version}-${REVISION}"
@@ -93,9 +86,6 @@ get_package_and_checksum(){
 
     echo "deb_file: ${deb_file}"
     echo "symbols_deb_file: ${symbols_deb_file}"
-
-    echo "Listing of ${pkg_path}"
-    ls ${pkg_path}
 
     find ${pkg_path} -type f -name "wazuh-${BUILD_TARGET}*deb" -exec mv {} /var/local/wazuh/ \;
 }

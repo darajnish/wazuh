@@ -48,8 +48,8 @@ function build() {
     EXECUTABLE_FILES+=" $(find "${SEARCH_DIR}" -type f ! -name "*.py" ! -path "${SEARCH_DIR}/external/*" ! -path "${SEARCH_DIR}/symbols/*" -name "*.dylib" -print 2>/dev/null)"
 
     for var in $EXECUTABLE_FILES; do
-    filename=$(basename "$var")
-    dsymutil -o "${SEARCH_DIR}/symbols/${filename}.dSYM" "$var" 2>/dev/null && strip -S "$var"
+        filename=$(basename "$var")
+        dsymutil -o "${SEARCH_DIR}/symbols/${filename}.dSYM" "$var" 2>/dev/null && strip -S "$var"
     done
 
     echo "Running install script"

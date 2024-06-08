@@ -99,9 +99,6 @@ build_pkg() {
         ${REVISION} ${JOBS} ${DEBUG} \
         ${CHECKSUM} ${FUTURE} ${LEGACY} ${SRC}|| return 1
 
-
-    echo "**************** End build_pkg() ******************"
-
     return 0
 }
 
