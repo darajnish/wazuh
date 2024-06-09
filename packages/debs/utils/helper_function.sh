@@ -73,15 +73,15 @@ get_package_and_checksum(){
         symbols_deb_file="${symbols_base_name}_${ARCHITECTURE_TARGET}.deb"
     fi
 
-    if [[ "${IS_STAGE}" == "no" ]]; then
-        deb_file="$(sed "s/\.deb/_${short_commit_hash}&/" <<< "$deb_file")"
-        symbols_deb_file="$(sed "s/\.deb/_${short_commit_hash}&/" <<< "$symbols_deb_file")"
-    fi
-
     pkg_path="${build_dir}/${BUILD_TARGET}"
     if [[ "${checksum}" == "yes" ]]; then
         cd ${pkg_path} && sha512sum wazuh-${BUILD_TARGET}_*deb > /var/local/wazuh/${deb_file}.sha512
         sha512sum wazuh-${BUILD_TARGET}-*deb > /var/local/wazuh/${symbols_deb_file}.sha512
+    fi
+    
+    if [[ "${IS_STAGE}" == "no" ]]; then
+        deb_file="$(sed "s/\.deb/_${short_commit_hash}&/" <<< "$deb_file")"
+        symbols_deb_file="$(sed "s/\.deb/_${short_commit_hash}&/" <<< "$symbols_deb_file")"
     fi
 
     find ${pkg_path} -type f -name "wazuh-${BUILD_TARGET}*deb" -exec mv {} /var/local/wazuh/ \;
