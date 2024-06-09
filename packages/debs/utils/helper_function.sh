@@ -80,12 +80,9 @@ get_package_and_checksum(){
 
     pkg_path="${build_dir}/${BUILD_TARGET}"
     if [[ "${checksum}" == "yes" ]]; then
-        cd ${pkg_path} && sha512sum wazuh-${BUILD_TARGET}*deb > /var/local/wazuh/${deb_file}.sha512
-        cd ${pkg_path} && sha512sum ${symbols_deb_file} > /var/local/checksum/${symbols_deb_file}.sha512
+        cd ${pkg_path} && sha512sum wazuh-${BUILD_TARGET}_*deb > /var/local/wazuh/${deb_file}.sha512
+        sha512sum wazuh-${BUILD_TARGET}-*deb > /var/local/wazuh/${symbols_deb_file}.sha512
     fi
-
-    echo "deb_file: ${deb_file}"
-    echo "symbols_deb_file: ${symbols_deb_file}"
 
     find ${pkg_path} -type f -name "wazuh-${BUILD_TARGET}*deb" -exec mv {} /var/local/wazuh/ \;
 }
