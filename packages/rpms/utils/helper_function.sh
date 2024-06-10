@@ -86,17 +86,9 @@ build_package(){
 get_package_and_checksum(){
     src="$3"
     
-    rpm_files=(*.rpm)
-    RPM_NAME=""
-    SYMBOLS_NAME=""
-    for file in "${rpm_files[@]}"; do
-        # Find "debuginfo" in the filenames
-        if [[ $file == *"debuginfo"* ]]; then
-            SYMBOLS_NAME=$file
-        else
-            RPM_NAME=$file
-        fi
-    done
+    export RPM_NAME=$(ls -R ${rpm_build_dir}/RPMS | grep "wazuh-${BUILD_TARGET}_")
+    export SYMBOLS_NAME=$(ls -R ${rpm_build_dir}/RPMS | grep "wazuh-${BUILD_TARGET}-debuginfo")
+    export SRC_NAME=$(ls -R ${rpm_build_dir}/SRPMS | grep "\.src\.rpm$")
 
     echo "RPM_NAME: ${RPM_NAME}"
     echo "SYMBOLS_NAME:${SYMBOLS_NAME}"
@@ -107,6 +99,7 @@ get_package_and_checksum(){
         cd "${rpm_build_dir}/RPMS" && sha512sum $RPM_NAME > /var/local/wazuh/$RPM_NAME.sha512
         if [[ "${src}" == "yes" ]]; then
             cd "${rpm_build_dir}/SRPMS" && sha512sum $SRC_NAME > /var/local/wazuh/$SRC_NAME.sha512
+            sha512sum $SYMBOLS_NAME > /var/local/wazuh/$SYMBOLS_NAME.sha512
         fi
     fi
 
