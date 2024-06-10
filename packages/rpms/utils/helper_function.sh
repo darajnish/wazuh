@@ -107,6 +107,6 @@ get_package_and_checksum(){
         mv ${rpm_build_dir}/SRPMS/$SRC_NAME /var/local/wazuh
     else
         mv ${rpm_build_dir}/RPMS/$RPM_NAME /var/local/wazuh
-        mv ${rpm_build_dir}/SRPMS/$SYMBOLS_NAME /var/local/wazuh
+        mv ${rpm_build_dir}/RPMS/$SYMBOLS_NAME /var/local/wazuh
     fi
 }
