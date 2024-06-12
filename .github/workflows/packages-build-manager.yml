@@ -135,8 +135,17 @@ jobs:
             SYMBOLS_TAG="debuginfo"
           fi
 
-          echo "PACKAGE_NAME=$(ls /tmp | grep 'wazuh-manager' | grep -v '${SYMBOLS_TAG}')" | tee -a $GITHUB_ENV
-          echo "PACKAGE_SYMBOLS_NAME=$(ls /tmp | grep '${SYMBOLS_TAG}')" | tee -a $GITHUB_ENV
+          # Find all files starting with 'wazuh-manager' and ending with '.rpm or .deb'
+          for file in $(find /tmp -type f -name 'wazuh-manager*.${{ inputs.system }}'); do
+            if [[ "$file" == *"$SYMBOLS_TAG"* ]]; then
+              PACKAGE_SYMBOLS_NAME="$file"
+            else
+              PACKAGE_NAME="$file"
+            fi
+          done
+          
+          echo "PACKAGE_NAME=${PACKAGE_NAME}" | tee -a $GITHUB_ENV
+          echo "PACKAGE_SYMBOLS_NAME=${$PACKAGE_SYMBOLS_NAME}" | tee -a $GITHUB_ENV
 
       - name: Test install built manager
         run: |
