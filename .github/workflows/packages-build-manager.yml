@@ -130,9 +130,9 @@ jobs:
           bash generate_package.sh -a amd64 --tag ${{ env.TAG }} --system ${{ inputs.system }} $FLAGS
 
           if [ "${{ inputs.system}}" == "deb" ]; then 
-            SYMBOLS_TAG="-dbg"
+            SYMBOLS_TAG="dbg"
           else
-            SYMBOLS_TAG="-debuginfo"
+            SYMBOLS_TAG="debuginfo"
           fi
 
           echo "PACKAGE_NAME=$(ls | grep "wazuh-manager" | grep -v "${SYMBOLS_TAG}")" | tee -a $GITHUB_ENV
