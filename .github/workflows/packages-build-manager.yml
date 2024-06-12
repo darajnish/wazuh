@@ -135,8 +135,8 @@ jobs:
             SYMBOLS_TAG="debuginfo"
           fi
 
-          echo "PACKAGE_NAME=$(ls | grep "wazuh-manager" | grep -v "${SYMBOLS_TAG}")" | tee -a $GITHUB_ENV
-          echo "PACKAGE_SYMBOLS_NAME=$(ls | grep "${SYMBOLS_TAG}})" | tee -a $GITHUB_ENV
+          echo "PACKAGE_NAME=$(ls /tmp | grep 'wazuh-manager' | grep -v '${SYMBOLS_TAG}')" | tee -a $GITHUB_ENV
+          echo "PACKAGE_SYMBOLS_NAME=$(ls /tmp | grep '${SYMBOLS_TAG}')" | tee -a $GITHUB_ENV
 
       - name: Test install built manager
         run: |
