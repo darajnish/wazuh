@@ -84,5 +84,6 @@ get_package_and_checksum(){
         symbols_deb_file="$(sed "s/\.deb/_${short_commit_hash}&/" <<< "$symbols_deb_file")"
     fi
 
-    find ${pkg_path} -type f -name "wazuh-${BUILD_TARGET}*deb" -exec mv {} /var/local/wazuh/ \;
+    find ${pkg_path} -type f -name "wazuh-${BUILD_TARGET}_*deb" -exec mv {} /var/local/wazuh/${deb_file} \;
+    find ${pkg_path} -type f -name "wazuh-${BUILD_TARGET}-dbg_*deb" -exec mv {} /var/local/wazuh/${symbols_deb_file} \;
 }
