@@ -137,18 +137,15 @@ jobs:
 
           # Find all files starting with 'wazuh-manager' and ending with '.rpm or .deb'
           for file in $(find /tmp -maxdepth 1 -type f -name 'wazuh-manager*.${{ inputs.system }}' -exec basename {} 2>/dev/null \;); do
-            echo "$file"
             if [[ "$file" == *"$SYMBOLS_TAG"* ]]; then
-              echo "found symbols: $file"
               PACKAGE_SYMBOLS_NAME="$file"
             else
-              echo "found package: $file"
               PACKAGE_NAME="$file"
             fi
           done
           
           echo "PACKAGE_NAME=${PACKAGE_NAME}" | tee -a $GITHUB_ENV
-          echo "PACKAGE_SYMBOLS_NAME=${$PACKAGE_SYMBOLS_NAME}" | tee -a $GITHUB_ENV
+          echo "PACKAGE_SYMBOLS_NAME=${PACKAGE_SYMBOLS_NAME}" | tee -a $GITHUB_ENV
 
       - name: Test install built manager
         run: |
