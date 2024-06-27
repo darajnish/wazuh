@@ -139,13 +139,13 @@ def test_log_groups(
 
     if expected_results:
         log_monitor.start(
-            timeout=TIMEOUT[20],
+            timeout=TIMEOUT[30],
             callback=event_monitor.callback_detect_service_event_processed(expected_results, service_type),
             accumulations=len(log_group_names.split(','))
         )
     else:
         log_monitor.start(
-            timeout=TIMEOUT[10],
+            timeout=TIMEOUT[20],
             callback=event_monitor.make_aws_callback(pattern=fr"{NON_EXISTENT_SPECIFIED_LOG_GROUPS}")
         )
 

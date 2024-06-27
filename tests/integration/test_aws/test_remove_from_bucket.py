@@ -132,7 +132,7 @@ def test_remove_from_bucket(
     assert log_monitor.callback_result is not None, ERROR_MESSAGE['incorrect_parameters']
 
     log_monitor.start(
-        timeout=TIMEOUT[20],
+        timeout=TIMEOUT[30],
         callback=event_monitor.make_aws_callback(pattern=fr"{REMOVE_S3_FILE}")
     )
 

@@ -288,7 +288,7 @@ def test_cloudwatch_regions(
 
     if expected_results:
         log_monitor.start(
-            timeout=TIMEOUT[20],
+            timeout=TIMEOUT[30],
             callback=event_monitor.callback_detect_service_event_processed(expected_results, service_type),
             accumulations=len(regions_list)
         )
@@ -426,7 +426,7 @@ def test_inspector_regions(
 
     if expected_results:
         log_monitor.start(
-            timeout=TIMEOUT[20],
+            timeout=TIMEOUT[30],
             callback=event_monitor.callback_detect_service_event_processed(expected_results, service_type),
             accumulations=len(regions_list)
         )
