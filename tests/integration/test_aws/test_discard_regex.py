@@ -276,7 +276,7 @@ def test_cloudwatch_discard_regex_json(
     assert log_monitor.callback_result is not None, ERROR_MESSAGE['incorrect_parameters']
 
     log_monitor.start(
-        timeout=TIMEOUT[30],
+        timeout=TIMEOUT[20],
         callback=event_monitor.callback_detect_event_skipped(pattern),
         accumulations=skipped_logs
     )
@@ -404,7 +404,7 @@ def test_cloudwatch_discard_regex_simple_text(
     assert log_monitor.callback_result is not None, ERROR_MESSAGE['incorrect_parameters']
 
     log_monitor.start(
-        timeout=TIMEOUT[30],
+        timeout=TIMEOUT[20],
         callback=event_monitor.callback_detect_event_skipped(pattern),
         accumulations=skipped_logs
     )
@@ -521,7 +521,7 @@ def test_inspector_discard_regex(
     assert log_monitor.callback_result is not None, ERROR_MESSAGE['incorrect_parameters']
 
     log_monitor.start(
-        timeout=TIMEOUT[30],
+        timeout=TIMEOUT[20],
         callback=event_monitor.callback_detect_event_skipped(pattern),
         accumulations=skipped_logs
     )

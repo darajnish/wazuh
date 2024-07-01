@@ -534,7 +534,7 @@ def test_cloudwatch_with_only_logs_after(
     assert log_monitor.callback_result is not None, ERROR_MESSAGE['incorrect_parameters']
 
     log_monitor.start(
-        timeout=TIMEOUT[20],
+        timeout=TIMEOUT[10],
         callback=event_monitor.callback_detect_service_event_processed(expected_results, service_type),
     )
 
@@ -659,7 +659,7 @@ def test_inspector_with_only_logs_after(
     assert log_monitor.callback_result is not None, ERROR_MESSAGE['incorrect_parameters']
 
     log_monitor.start(
-        timeout=TIMEOUT[20],
+        timeout=TIMEOUT[10],
         callback=event_monitor.callback_detect_service_event_processed(expected_results, service_type),
     )
 
