@@ -438,7 +438,7 @@ IndexerConnector::IndexerConnector(
         m_dispatcher =
             std::make_unique<ThreadDispatchQueue>(functor, DATABASE_BASE_PATH + m_indexName, ELEMENTS_PER_BULK);
     }
-    catch (std::system_error& e)
+    catch (const std::system_error& e)
     {
         // Only try to repair IO and Corruption errors
         if (e.code() == std::errc::io_error)
@@ -453,6 +453,8 @@ IndexerConnector::IndexerConnector(
         }
         else
         {
+            auto path = DATABASE_BASE_PATH + m_indexName;
+            logDebug1(IC_NAME, "Can't handle error for '%s'.", path.c_str());
             throw;
         }
     }

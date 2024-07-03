@@ -50,7 +50,6 @@ public:
         TRSAPrimitive().rsaEncrypt(CERTIFICATE_FILE, value, encryptedValue, true);
 
         // Insert to DB
-        // Utils::RocksDBWrapper keystoreDB = Utils::RocksDBWrapper(DATABASE_PATH, false);
         bool repaired {false};
         auto keystoreDB = Utils::RocksDBWrapper::openAndRepairBuilder(DATABASE_PATH, repaired, false);
         if (repaired)
