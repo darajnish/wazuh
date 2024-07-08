@@ -50,8 +50,7 @@ public:
         TRSAPrimitive().rsaEncrypt(CERTIFICATE_FILE, value, encryptedValue, true);
 
         // Insert to DB
-        bool repaired {false};
-        auto keystoreDB = Utils::RocksDBWrapper::openAndRepairBuilder(DATABASE_PATH, repaired, false);
+        auto [keystoreDB, repaired] = Utils::RocksDBWrapper::openAndRepairBuilder(DATABASE_PATH, false);
         if (repaired)
         {
             logWarn(KS_NAME, "Database '%s' was repaired because it was corrupt.", DATABASE_PATH);
@@ -77,8 +76,7 @@ public:
         std::string encryptedValue;
 
         // Get from DB
-        bool repaired {false};
-        auto keystoreDB = Utils::RocksDBWrapper::openAndRepairBuilder(DATABASE_PATH, repaired, false);
+        auto [keystoreDB, repaired] = Utils::RocksDBWrapper::openAndRepairBuilder(DATABASE_PATH, false);
         if (repaired)
         {
             logWarn(KS_NAME, "Database '%s' was repaired because it was corrupt.", DATABASE_PATH);
